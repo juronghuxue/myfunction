@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <div class="row" id="pinpai">
+        <div class="col-lg-12 col-md-12 col-sm-12 banner-list mb-10 mt-10" style="margin-bottom: 0px;">
+            <div id="wrap" style="width: 1140px;height: 120px;overflow: hidden;position:relative;">
+                    <div class="prev">
+                        <img src="<?php echo $public ?>/img/icon_jiantou_2_up_nav_left.png" alt="">
+                    </div>
+                    <div class="next">
+                        <img src="<?php echo $public ?>/img/icon_jiantou_2_up_nav_right_cate.png" alt="">
+                    </div>
+                    <div class="wrap-famouse" style="height:100%;position:absolute;left:0;top:0;">
+                        <!--<ul class="famouse-slide">
+                        <?php /*foreach($brand as $key => $value){*/?>
+                            <?php /*if($key % 2 == 0) echo "<li>"; */?>
+                                <a href="javascript:;">
+                                    <img alt="<?/*=$value['name'] */?>" title="<?/*=$value['name'] */?>" src="<?/*=$value['logo'] */?>" class="img-responsive center-block">
+                                </a>
+                            <?php /*if($key % 2 == 1) echo "</li>"; */?>
+                        <?php /*} */?>
+                        </ul>-->
+                        <!-- <ul class="famouse-slide">//huxu
+                            <li>
+                                <a href="#" target="_blank">
+                                    <img alt="Catherine Sherwood" src="<?php echo $public ?>/image/theme/logo-news/14.png" class="img-responsive center-block">
+                                
+                                </a>
+                                <a href="#" target="_blank">
+                                    <img alt="Catherine Sherwood" src="<?php echo $public ?>/image/theme/logo-news/17.png" class="img-responsive center-block">
+                                
+                                </a>
+                            </li>
+                        </ul> -->
+                   </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+<script>
+    // 品牌滚动
+        var _num = 0;
+        var wrap=$(".wrap-famouse");
+        var ul=$(".wrap-famouse ul");
+        var first = ul.first().clone(true);
+        var last = ul.last().clone(true);
+        wrap.append(first);
+        wrap.prepend(last);
+        wrap.css({'left':'-1140px'});
+        var size=$(".wrap-famouse ul").length;
+        console.log(size);
+        $(".prev").click(function () {
+            _num--;
+            console.log(_num);
+            $(".wrap-famouse").stop().animate({"left":(-_num-1)*1140+'px'},200,function(){
+                if(_num==-1){
+                    $(".wrap-famouse").css({'left':-(size-2)*1140+'px'});
+                    _num = size-3;
+                }
+            });
+        });
+        $(".next").click(function () {
+            _num++;
+            console.log(_num);
+            $(".wrap-famouse").stop().animate({"left":(-_num-1)*1140+'px'},200,function(){
+                if(_num==size-2){
+                    $(".wrap-famouse").css({'left':'-1140px'});
+                    _num = 0;
+                }
+            });
+        });
+
+    // 自动滚动
+    var timer = null;
+    timerFn();
+    function timerFn(){
+        timer = setInterval(function(){
+            _num++;
+            console.log(_num);
+            $(".wrap-famouse").stop().animate({"left":(-_num-1)*1140+'px'},200,function(){
+                if(_num==size-2){
+                    $(".wrap-famouse").css({'left':'-1140px'});
+                    _num = 0;
+                }
+            });
+        },5000);
+    }
+
+    //鼠标事件
+    $('#pinpai').on('mouseover',function(){
+        console.log(11111);
+        clearInterval(timer);
+    });
+    $('#pinpai').on('mouseout',function(){
+        console.log(1112222211);
+        timerFn();//开启定时器
+    });
+</script>

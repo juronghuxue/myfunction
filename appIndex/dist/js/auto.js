@@ -1,0 +1,1 @@
+var docEl=document.documentElement,resizeEvt="orientationchange"in window?"orientationchange":"resize",recalc=function(){var e=docEl.clientWidth/750*32;console.log(e),e>32&&(docEl.style.fontSize="32px"),docEl.style.fontSize=docEl.clientWidth/750*32+"px"};window.addEventListener(resizeEvt,recalc,!1),document.addEventListener("DOMContentLoaded",recalc,!1);

@@ -1,0 +1,216 @@
+i3D223Dz]B
+<span id="processBar"><span id="processBar-inner"></span></span><i id="processBarNum"></i>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"> 网页放大缩小
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no"/>关闭数字变手机号码
+
+1.gulp-uglify:压缩javascript文件，减小文件大小。
+2.gulp-minify-css:压缩css文件
+3.gulp-imagemin:压缩图片文件
+4.gulp-htmlmin:可以压缩页面javascript、css，
+去除页面空格、注释，删除多余属性等操作。
+5.gulp-rename:改变文件流中的文件名
+6.gulp-concat:多个文件合并为一个文件,减少页面的http请求数
+
+<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script><script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script><![endif]-->
+
+
+http://www.nooong.com/docs/cordova/1.htm        APP打包说明文档
+
+
+http://blog.csdn.net/lishihong108/article/details/52225933  ionic作用域
+
+IE滤镜问题：
+    opacity: 0.4
+    filter: alpha(opacity=60); /* for IE5-7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+
+环境搭建/angularjs/ionic：http://www.nooong.com/docs/cordova/1.htm
+
+ionic官网：http://ionicframework.com/docs/
+
+es6新特性：http://www.cnblogs.com/Wayou/p/es6_new_features.html
+
+svn使用手册：http://www.docin.com/p-433052561.html
+
+
+项目-智优派网址：http://192.168.10.68:8085/views/pc/achievement.html
+
+
+登录验证码验证是否正确（标志：对、错）
+
+ $('#yzmCode').keyup(function(e){
+                if($('#yzmCode').val().length < 4){
+                    $('.code-tell').css({'display':'none'});
+                    return;
+                }else if($('#yzmCode').val().length == 4 ){
+                console.log($('#yzmCode').val().length);
+                     var yzmCode1 = $("#yzmCode").val();  //验证码
+                     var yzmCodeJson1 ={};
+                     yzmCodeJson1['yzmCode']=yzmCode1;
+                     //alert(yzmCode1)
+                     MY.ajax({
+                        type:'post',
+                        url:'/validationRandCode',
+                        data:{yzmCode:yzmCode1}
+                     }).done(function(data){
+                        //console.log(data);
+                        $('.code-tell').css({'display':'block'});
+                        if(data.rtnCode == '0000000'){
+                           $('.code-tell').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                        }else{
+                           $('.code-tell').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                        }
+                     });
+                }else if($('#yzmCode').val().length > 4 ){
+                    $('.code-tell').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                }
+            });
+页面元素默认会拖拽，禁止页面拖拽事件
+$(document).on('dragstart',function(ev){
+        console.log(11111);
+        if(ev.preventDefault()){
+            ev.preventDefault();
+        }else{
+            ev.returnValue = false;
+        }
+    });
+
+js阻止右键菜单
+this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
+
+npm资料网站：http://www.ydcss.com/archives/18
+
+gulp入门教程，gulpfile配置：https://segmentfault.com/a/1190000002698606
+
+http://blog.csdn.net/emoven/article/details/41869029  日期控件
+
+https://segmentfault.com/a/1190000000754560  文件裁剪上传
+
+https://my.oschina.net/u/565351/blog/692777   文件裁剪上传
+
+图片上传
+<div class="ad-tu">
+   <img src="" />
+   <label>广告图</label>
+   <form action="/adManager/uploadImg" method="post" enctype="multipart/form-data" id="_uploadImgForm">
+   <input name="file" id="_imgFile" type="file" onchange="uploadImg2()" />
+   </form>
+   <div id="_showImg"></div>
+   <p>
+       说明：1、图片格式为jpg、png格式<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       2、图片大小200*160，不超过60k
+    </p>
+</div>
+
+function uploadImg(){
+
+    var formdata=new FormData( );
+    formdata.append("file" , $("#imgFile")[0].files[0]);//获取文件法二
+    $.ajax({
+        type : 'post',
+        url : '/adManager/uploadImg',
+        data : formdata,
+        cache : false,
+        processData : false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+        contentType : false, // 不设置Content-type请求头
+        success:function(data){
+
+            if (data.rtnCode == "0000000"){
+                var bizData = data.bizData;
+                var imgUrl = bizData.imgPath;
+                $("#showImg").empty();
+                $("#showImg").append("<img src="+imgUrl+" />");
+                sessionStorage.setItem("imgPath",imgUrl)
+            }else{
+                alert("上传失败！");
+            }
+        }
+    });
+}
+
+清除缓存：http://www.cnblogs.com/louby/p/5012663.html
+
+消息推送：GoEasy   （Pubnub、个推、极光）   必要时查看他们的官网
+文件上传插件：http://plugins.krajee.com/file-input#usage     中文版  http://www.ithao123.cn/content-10182240.html
+
+代码合并：gruntjs   所用到的插件grunt.loadNpmTasks('grunt-contrib-uglify');
+				grunt.loadNpmTasks('grunt-contrib-jshint');
+				grunt.loadNpmTasks('grunt-contrib-qunit');
+				grunt.loadNpmTasks('grunt-contrib-watch');
+				grunt.loadNpmTasks('grunt-contrib-concat');
+前端判断获取到的url地址是否正确可以用img的onerrer事件
+<div id="noPic">
+	<img src="bus-state-bg02.png" onerror="enter(this)" />
+</div>
+function enter(obj){
+	//this.innerHTML = '没找到图片';
+	//alert('11111');
+	noPic.innerHTML = '没找到图片';
+}
+
+JQ  AJAX用法
+$.ajax({
+                    type: 'POST',
+                    url: '/uCenter/queryWechatPayStatus' ,
+                    dataType:"json",
+                    data: {
+                        orderNo:orderNo
+                    } ,
+                    success:function(data){
+                        if(data.rtnCode =="0000000" ){
+                            var isPaySuccess=data.bizData.isPaySuccess;
+                            if(isPaySuccess == 'true' || isPaySuccess == true) {
+                                $('#pay-back').html('支付成功');
+                                $('#pay-back img').attr('src','/static/pc/images/right.png');
+                                MY.alert('您已成功支付','success',function(){
+                                    window.location.href = "Personal_center.html";
+                                });
+                                clearInterval(interval1);//如果支付状态成功返回则清掉定时器
+                            }
+
+                        }else{
+                            if(data.msg==undefined){
+                                data.msg="系统异常";
+                            }
+                            console.log(data.msg);
+                        }
+                    },
+                    error : function() {
+                        console.log("发送失败！请重试");
+                    }
+                });
+
+微信小程序：
+
+给js加版本号以便清楚缓存的方法：
+<script>
+   document.write("<script src='js\/content.js?ver="+Math.random().toString().slice(2)+"'><\/script>");
+   document.write("<script src='js\/login.js?ver="+Math.random().toString().slice(2)+"'><\/script>");
+</script>
+
+获取平台信息：
+function getPlatform() {
+    var ua = navigator.userAgent.toLowerCase();
+    var platform = "";
+
+    //移动端浏览器
+    if (/iphone|ipad|ipod/.test(ua) || /android/.test(ua)) {
+
+        //微信内置浏览器
+        if (/micromessenger/.test(ua)) {
+            platform = "wechat";
+        } else {
+            //美居浏览器
+            platform = "meiju";
+        }
+        return platform;
+    } else {
+        return 'other';
+    }
+}

@@ -275,3 +275,71 @@
  //        // }
  //    });
 </script>
+<!-- h5图片上传图片本地显示 -->
+<script>
+    $('#detail_upload').change(function(){
+                img_sum++;
+                console.log(img_sum);
+                var _this = $(this);
+                var file = $(this).get(0).files[0];
+                var type = file.type;
+                var iStart = type.indexOf('/');
+                var picType = type.substring(iStart,type.length);
+                var reader = new FileReader();
+                var formData = new FormData();
+                if(picType == '/jpg'||picType == '/jpeg'||picType == '/png'||picType == '/gif'){
+                    //添加图片
+                    if(file.size>5*124*1024){
+                        layer.msg('Image file is too big. 5M at most.', {icon: 0,time: 1000});
+                        return;
+                    }
+                    if(img_sum>=5){
+                        img_sum = 4;
+                        console.log(img_sum);
+                        layer.msg('Sorry, 4 images at most.', {icon: 0,time: 1000});
+                        return;
+                    }else if(img_sum>=1&&img_sum<4){
+                        $('.commen_tishi>.upload_4a').hide();
+                    }else if(img_sum==0){
+                        $('.commen_tishi>.upload_4a').show();
+                    }
+                   
+                    reader.readAsDataURL(file);
+                    reader.onload = function(e){
+                        formData.append('myfile',file);
+                        formData.append('_csrf',_csrf);
+                        var _result = this.result;
+                        console.log(_result);
+                        $.ajax({
+                            url: "/goods/saveimg.html",
+                            type: "POST",
+                            data: formData,
+                            dataType:'json',
+                            contentType: false,
+                            processData: false,
+                            success:function(res){
+                                console.log(formData);
+                                console.log(res);
+                                var imgPath = res.url;
+                                var str = '<b class="img-wrap" style="display:inline-block;;width:40px;height:40px;margin-left:10px;position:relative;"><img src="'+_result+'" path="'+imgPath+'"/><i style="display:block;position:absolute;top:0;right:0;width:18px;height:18px;background:#ffffff;border-radius:9px;line-height:16px;text-align:center;font-style:normal;font-size:10px;cursor:pointer;color:#cccccc;" onclick="deletePic(this)">x</i></b>';
+                                
+                                $('.commen_tishi').append(str);
+                                path = '';
+                                for(var i = 0;i<$('.img-wrap').length;i++){
+                                    path += $('.img-wrap').eq(i).find('img').attr('path')+',';
+                                }
+                                console.log(path);
+                                $('#imgupload').val(path);
+                            }
+                        });
+                        _this.val('');
+
+                        
+                    }
+
+
+                }else{
+                    layer.msg('Please upload jpg, jpeg or png.', {icon: 0,time: 1000});
+                }
+            });
+</script>

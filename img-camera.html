@@ -8,5 +8,24 @@
 </head>
 <body>
 	<input type="file" accept="image/*" value="调用相机或相册" />
+	<div class="face-register">人脸录入</div>
+	<div class="face">人脸识别</div>
 </body>
+<script src="jquery.js"></script>
+<script>
+	$('.face-register').click(function(){
+		$.ajax({
+			url:'https://api-cn.faceplusplus.com/facepp/v3/faceset/create',
+			type:'POST',
+			data:{
+				api_key:'fVQlgwNM_bGE9jxdTqKVS4x2SWoM9RtN',
+				api_secret:'tGzUKM5vjVaEC_gwATcIKkzmte0Hs0Wz',
+
+			},
+			success:function(data){
+				console.log(data);
+			}
+		});
+	});
+</script>
 </html>

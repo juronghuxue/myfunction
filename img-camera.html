@@ -11,7 +11,9 @@
 	<div class="face-register">人脸录入</div>
 	<div class="face">人脸识别</div>
 </body>
+<script src="browser.min.js"></script>
 <script src="jquery.js"></script>
+
 <script>
 	$('.face-register').click(function(){
 		$.ajax({
@@ -27,5 +29,57 @@
 			}
 		});
 	});
+	{
+		let a  = 1;
+		let b = 2;
+		// console.log(a,b);//1 2
+	}
+	// console.log(a,b);//undefined
+	var a = [];
+	for (let i = 0; i < 10; i++) {
+	  a[i] = function () {
+	    // console.log(i);
+	  };
+	}
+	// console.log(a,a[2]());
+	class Point{
+		constructor(x, y) {
+		    this.x = x;
+		    this.y = y;
+  		}
+  		toString(){
+  			return '(' + this.x + ', ' + this.y + ')';
+  		}
+	}
+	class ColorPoint extends Point{
+		constructor(){
+			super();
+		}
+	}
+	let cp = new ColorPoint();
+	// var a = new Point(1,2);
+	// console.log(a.toString());
+	class A {}
+	class B extends A {
+	  constructor() {
+	    super();
+	    // console.log(super); 
+	  }
+	}
+
+let b = new B();
+</script>
+<script type="text/ecmascript-6">
+	let arrayLike = {
+	  '0': 'a',
+	  '1': 'b',
+	  '2': 'c',
+	  length: 3
+	};
+	// let arr = [...arrayLike];
+	// console.log(arr);
+	// var arr = Array.from([1,2,3],(n)=>n+1);
+	// console.log(arr);
+
 </script>
 </html>

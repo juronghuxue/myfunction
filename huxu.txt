@@ -1,0 +1,44 @@
+2017/12/18 -- 2017/12/23  胡旭
+1.giveaway页面一次改版（由插件改为ui设计的样式）
+2.christmas圣诞详情页装饰
+3.giveaway页面二次改版（由ui 设计的样式改为插件ui混合，插件丢弃瀑布流）
+4.exclusive页面修改样式
+5.打开exclusive页面入口
+6.分类和搜索页每列4个产品展示
+7.christmas index页面logo替换
+8.首页品牌切换空白（快速连续点击情况下）
+9.更新博客三张广告图
+10.banner加载间隔线
+11.结算页优惠券样式需求
+
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"></script>
+
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(113.846671,22.612713);
+	var marker = new BMap.Marker(point);  // 创建标注
+	map.addOverlay(marker);              // 将标注添加到地图中
+	map.centerAndZoom(point, 15);
+	var opts = {
+	  width : 200,     // 信息窗口宽度
+	  height: 100,     // 信息窗口高度
+	  title : "梧桐岛" , // 信息窗口标题
+	  enableMessage:true,//设置允许信息窗发送短息
+	  message:"亲耐滴，晚上一起吃个饭吧？戳下面的链接看下地址喔~"
+	}
+	var infoWindow = new BMap.InfoWindow("地址：深圳市亿乐谷科技有限公司", opts);  // 创建信息窗口对象 
+	marker.addEventListener("click", function(){          
+		map.openInfoWindow(infoWindow,point); //开启信息窗口
+	});
+	map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom(); 
+</script>
+
+var map = new BMap.Map("allmap");  
+	map.centerAndZoom(new BMap.Point(116.4035,39.915),8); 
+	setTimeout(function(){
+		map.setZoom(14);   
+	}, 2000);  //2秒后放大到14级
+	map.enableScrollWheelZoom(true);
